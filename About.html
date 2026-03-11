@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TELECONNECT -India- B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Poppins', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-18px)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8faff;
+            overflow-x: hidden;
+        }
+
+        /* Brand gradient */
+        .brand-gradient {
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+        }
+
+        .brand-gradient-text {
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Mesh background */
+        .hero-mesh {
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(14, 165, 233, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(79, 70, 229, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 60% 20%, rgba(14, 165, 233, 0.10) 0%, transparent 50%),
+                #f0f4ff;
+        }
+
+        /* Animated orbs */
+        .orb {
+            border-radius: 50%;
+            filter: blur(70px);
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        #navbar {
+            transition: background 0.4s, box-shadow 0.4s;
+        }
+
+        #navbar.scrolled {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(79, 70, 229, 0.10);
+        }
+
+        /* Mobile menu */
+        #mobile-menu {
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .navbar-logo {
+            height: 45px;
+            width: auto;
+            display: block;
+            transform: scale(1.1);
+            transform-origin: left center;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-logo {
+                transform: scale(1.6);
+            }
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Button pulse ring */
+        .btn-primary {
+            position: relative;
+            overflow: visible;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            filter: blur(10px);
+        }
+
+        .btn-primary:hover::after {
+            opacity: 0.6;
+        }
+
+        /* Cards */
+        .value-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(14, 165, 233, 0.10);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(79, 70, 229, 0.13);
+        }
+
+        /* Dot grid */
+        .dot-grid {
+            background-image: radial-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+    </style>
+</head>
+
+<body class="font-body text-slate-800">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-18 py-4">
+                <!-- Logo -->
+                <a href="index.html" class="logo-mark flex-shrink-0">
+                    <!-- Replaced SVG with Image -->
+                    <div class="relative">
+                        <img src="assets/Logo.svg" alt="TELECONNECT Logo" class="navbar-logo">
+                    </div>
+                    <!-- <span class="font-display text-xl font-800 font-extrabold text-slate-900 tracking-tight">Nexa<span
+                            class="brand-gradient-text">Link</span></span> -->
+                </a>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Home</a>
+                    <a href="About.html"
+                        class="text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">About</a>
+                    <a href="service.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Services</a>
+                    <a href="Pricing.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">
+                        Pricing
+                    </a>
+                    <a href="contactus.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Contact</a>
+                </div>
+
+                <!-- CTA Button (desktop) -->
+                <div class="hidden md:flex items-center gap-4">
+
+                    <a href="contactus.html"
+                        class="btn-primary brand-gradient text-white text-[0.9rem] font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-all duration-300 shadow-lg shadow-sky-200">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Hamburger -->
+                <button id="hamburger"
+                    class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100 transition"
+                    aria-label="Menu">
+                    <span class="ham-line block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300"></span>
+                    <span class="ham-line block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300"></span>
+                    <span class="ham-line block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden glass border-t border-white/40">
+            <div class="px-6 py-5 flex flex-col gap-4">
+                <a href="index.html"
+                    class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors">Home</a>
+                <a href="About.html" class="text-sky-600 font-medium py-1">About</a>
+                <a href="service.html"
+                    class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors">Services</a>
+                <a href="Pricing.html"
+                    class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors">Pricing</a>
+                <a href="contactus.html"
+                    class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors">Contact</a>
+
+
+                <a href="contactus.html"
+                    class="brand-gradient text-white text-center font-semibold px-5 py-3 rounded-full mt-2 hover:opacity-90 transition">Get
+                    Started</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero-mesh min-h-[60vh] flex items-center relative overflow-hidden pt-20">
+        <div class="orb w-72 h-72 bg-sky-300 opacity-25 top-10 -left-20 animate-float"></div>
+        <div class="orb w-96 h-96 bg-indigo-400 opacity-20 bottom-10 -right-28 animate-float"
+            style="animation-delay: 2s"></div>
+        <div class="absolute inset-0 dot-grid opacity-60 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 text-center">
+            <!-- <div
+                class="reveal inline-flex items-center gap-2 bg-white/80 border border-sky-200 rounded-full px-4 py-1.5 mb-7 shadow-sm">
+                <span class="text-xs font-semibold text-sky-700 tracking-wide uppercase">Est. 2015</span>
+            </div> -->
+
+            <h1
+                class="reveal font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] text-slate-900 mb-6">
+                About <span class="brand-gradient-text">TeleConnect India</span>
+            </h1>
+            <p class="reveal text-lg text-slate-500 leading-relaxed mb-10 max-w-3xl mx-auto font-light">
+                TeleConnect India is a technology-driven communication platform that enables businesses to connect with
+                their customers through powerful messaging and voice solutions.
+            </p>
+            <p class="reveal text-lg text-slate-500 leading-relaxed mb-10 max-w-3xl mx-auto font-light">
+                Our platform is designed to simplify business communication by providing scalable, reliable, and
+                efficient communication infrastructure. We help organizations deliver notifications, marketing
+                campaigns, alerts, and customer engagement messages through multiple communication channels with ease
+                and reliability.
+            </p>
+        </div>
+
+        <!-- Wave divider -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+                class="w-full h-12 sm:h-16 lg:h-20">
+                <path d="M0 40 Q360 80 720 40 Q1080 0 1440 40 L1440 80 L0 80 Z" fill="white" />
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- MISSION SECTION -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Left: Vision -->
+                <div class="reveal">
+                    <div
+                        class="inline-flex items-center gap-2 bg-sky-50 border border-sky-100 rounded-full px-4 py-1.5 mb-6">
+                        <span class="text-xs font-semibold text-sky-600 tracking-wide uppercase">Our Vision</span>
+                    </div>
+                    <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                        Our <span class="brand-gradient-text">Vision</span>
+                    </h2>
+                    <p class="text-slate-500 text-lg mb-8 font-light leading-relaxed">
+                        To become a trusted and leading communication platform that empowers businesses with reliable
+                        messaging solutions, driven by innovation, experience, and a strong commitment to delivering
+                        exceptional service to every customer.
+                    </p>
+                </div>
+
+                <!-- Right: Mission -->
+                <div class="reveal">
+                    <div
+                        class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-6">
+                        <span class="text-xs font-semibold text-indigo-600 tracking-wide uppercase">Our Mission</span>
+                    </div>
+                    <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                        Our <span class="brand-gradient-text">Mission</span>
+                    </h2>
+                    <p class="text-slate-500 text-lg mb-8 font-light leading-relaxed">
+                        To provide secure, scalable, and high-performance messaging technologies that enable businesses
+                        to communicate effectively with their customers while maintaining reliability, continuous
+                        innovation, and outstanding customer support.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CORE VALUES -->
+    <section class="py-24 bg-[#eef2ff]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div
+                    class="inline-flex items-center gap-2 bg-white border border-indigo-100 rounded-full px-4 py-1.5 mb-5 shadow-sm">
+                    <span class="text-xs font-semibold text-indigo-600 tracking-wide uppercase">Our Values</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4">
+                    Our Core <span class="brand-gradient-text">Values</span>
+                </h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto font-light">The principles that guide every decision
+                    we make and every connection we build.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Value 1: Reliability -->
+                <div class="value-card bg-white rounded-2xl p-7 shadow-md reveal">
+                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Reliability</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">We ensure consistent and dependable message
+                        delivery, enabling businesses to communicate with confidence.</p>
+                </div>
+
+                <!-- Value 2: Innovation -->
+                <div class="value-card bg-white rounded-2xl p-7 shadow-md reveal" style="transition-delay:0.1s">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Innovation</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">We continuously build and improve modern
+                        communication technologies that help businesses stay ahead in a fast-changing digital world.</p>
+                </div>
+
+                <!-- Value 3: Customer Success -->
+                <div class="value-card bg-white rounded-2xl p-7 shadow-md reveal" style="transition-delay:0.2s">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Customer Success</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">We are committed to helping businesses achieve
+                        better customer engagement and communication outcomes through our solutions.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- TEAM SECTION -->
+    <!-- <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div
+                    class="inline-flex items-center gap-2 bg-sky-50 border border-sky-100 rounded-full px-4 py-1.5 mb-5">
+                    <span class="text-xs font-semibold text-sky-600 tracking-wide uppercase">Leadership</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4">
+                    Meet the <span class="brand-gradient-text">Team</span>
+                </h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto font-light">The visionaries and experts steering
+                    TELECONNECT towards a more connected future.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                <!-- Team Member 1 -->
+    <!-- <div class="reveal text-center">
+                    <div class="relative w-40 h-40 mx-auto mb-5">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80"
+                            alt="CEO" class="w-full h-full object-cover rounded-2xl shadow-lg">
+                        <div class="absolute -bottom-2 -right-2 bg-white p-2 rounded-xl shadow-md">
+                            <a href="#" class="text-sky-500 hover:text-sky-600">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                                    <circle cx="4" cy="4" r="2" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">David Chen</h3>
+                    <p class="text-sm text-sky-600 font-medium">Chief Executive Officer</p>
+                    <p class="text-slate-400 text-sm mt-2 max-w-xs mx-auto">Former CTO of GlobalNet. 20 years in
+                        telecommunications infrastructure.</p>
+                </div> -->
+
+    <!-- Team Member 2 -->
+    <!-- <div class="reveal text-center" style="transition-delay:0.1s">
+                    <div class="relative w-40 h-40 mx-auto mb-5">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80"
+                            alt="COO" class="w-full h-full object-cover rounded-2xl shadow-lg">
+                        <div class="absolute -bottom-2 -right-2 bg-white p-2 rounded-xl shadow-md">
+                            <a href="#" class="text-sky-500 hover:text-sky-600">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                                    <circle cx="4" cy="4" r="2" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">Sarah Mitchell</h3>
+                    <p class="text-sm text-sky-600 font-medium">Chief Operating Officer</p>
+                    <p class="text-slate-400 text-sm mt-2 max-w-xs mx-auto">Expert in scaling operations globally.
+                        Stanford MBA.</p>
+                </div> -->
+
+    <!-- Team Member 3 -->
+    <!-- <div class="reveal text-center" style="transition-delay:0.2s">
+                    <div class="relative w-40 h-40 mx-auto mb-5">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80"
+                            alt="CTO" class="w-full h-full object-cover rounded-2xl shadow-lg">
+                        <div class="absolute -bottom-2 -right-2 bg-white p-2 rounded-xl shadow-md">
+                            <a href="#" class="text-sky-500 hover:text-sky-600">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                                    <circle cx="4" cy="4" r="2" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">Raj Patel</h3>
+                    <p class="text-sm text-sky-600 font-medium">Chief Technology Officer</p>
+                    <p class="text-slate-400 text-sm mt-2 max-w-xs mx-auto">Network architecture visionary. Led
+                        engineering at Cisco.</p>
+                </div> -->
+
+    <!-- </div>
+        </div> -->
+    <!-- </section> -->
+
+
+    <!-- CTA SECTION -->
+    <section class="py-24 brand-gradient relative overflow-hidden">
+        <div class="absolute inset-0 dot-grid opacity-20 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
+            <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">
+                Ready to Transform Your Business?
+            </h2>
+            <p class="text-white/80 text-lg mb-10 max-w-2xl mx-auto font-light">Join thousands of businesses that trust
+                TELECONNECT to keep them connected.</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contactus.html"
+                    class="bg-white text-indigo-600 font-bold px-10 py-4 rounded-full text-base hover:bg-slate-50 transition-all duration-300 shadow-2xl">
+                    Contact Sales
+                </a>
+                <a href="service.html"
+                    class="bg-white/15 text-white font-semibold px-10 py-4 rounded-full text-base border border-white/30 hover:bg-white/25 transition-all duration-300">
+                    View Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0a0f1e] text-slate-400 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                <div class="lg:col-span-2">
+                    <a href="#" class="logo-mark inline-flex items-center gap-2 mb-5">
+                        <img src="assets/Logo-F-white.svg" alt="TeleConnect India Logo" class="h-12 w-auto">
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-5 max-w-xs">Built to Connect. Designed to Scale.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm mb-5 uppercase tracking-wide">Services</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Bulk SMS</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">WhatsApp Messaging</a>
+                        </li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">RCS Messaging</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Voice Solutions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm mb-5 uppercase tracking-wide">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="About.html" class="hover:text-sky-400 transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Pricing</a></li>
+                        <li><a href="contactus.html" class="hover:text-sky-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm mb-5 uppercase tracking-wide">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-slate-500">&copy; 2026 TeleConnect India. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let menuOpen = false;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
+        });
+
+        hamburger.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            const lines = hamburger.querySelectorAll('.ham-line');
+            if (menuOpen) {
+                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                lines[1].style.opacity = '0';
+                lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                lines[0].style.transform = '';
+                lines[1].style.opacity = '';
+                lines[2].style.transform = '';
+            }
+        });
+
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+        revealEls.forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

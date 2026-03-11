@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing - TeleConnect India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Poppins', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-18px)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8faff;
+            overflow-x: hidden;
+        }
+
+        /* Brand gradient */
+        .brand-gradient {
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+        }
+
+        .brand-gradient-text {
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Mesh background */
+        .hero-mesh {
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(14, 165, 233, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(79, 70, 229, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 60% 20%, rgba(14, 165, 233, 0.10) 0%, transparent 50%),
+                #f0f4ff;
+        }
+
+        /* Section alternating bg */
+        .section-alt {
+            background: #eef2ff;
+        }
+
+        /* Cards */
+        .pricing-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(14, 165, 233, 0.10);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.12);
+        }
+
+        /* Animated orbs */
+        .orb {
+            border-radius: 50%;
+            filter: blur(70px);
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        #navbar {
+            transition: background 0.4s, box-shadow 0.4s;
+        }
+
+        #navbar.scrolled {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(79, 70, 229, 0.10);
+        }
+
+        /* Mobile menu */
+        #mobile-menu {
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stat counter */
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+
+        /* CTA section */
+        .cta-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 100%);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0f1e;
+        }
+
+        /* Button pulse ring */
+        .btn-primary {
+            position: relative;
+            overflow: visible;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            filter: blur(10px);
+        }
+
+        .btn-primary:hover::after {
+            opacity: 0.6;
+        }
+
+        /* Infra dot grid */
+        .dot-grid {
+            background-image: radial-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* Logo sizing */
+        .navbar-logo {
+            height: 45px;
+            width: auto;
+            display: block;
+            transform: scale(1.1);
+            transform-origin: left center;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-logo {
+                transform: scale(1.6);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body text-slate-800">
+
+    <!-- ═══════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-18 py-4">
+                <!-- Logo -->
+                <a href="index.html" class="logo-mark flex-shrink-0">
+                    <div class="relative">
+                        <img src="assets/Logo.svg" alt="TeleConnect India Logo" class="navbar-logo">
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Home</a>
+                    <a href="About.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">About</a>
+                    <a href="service.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Services</a>
+                    <a href="Pricing.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Pricing</a>
+                    <a href="contactus.html"
+                        class="text-slate-600 hover:text-sky-600 font-medium text-[0.9rem] transition-colors duration-200">Contact</a>
+                </div>
+
+                <!-- CTA Button (desktop) -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="contactus.html"
+                        class="btn-primary brand-gradient text-white text-[0.9rem] font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-all duration-300 shadow-lg shadow-sky-200">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Hamburger -->
+                <button id="hamburger"
+                    class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100 transition"
+                    aria-label="Menu">
+                    <span class="ham-line block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300"></span>
+                    <span class="ham-line block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300"></span>
+                    <span class="ham-line block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden glass border-t border-white/40">
+            <div class="px-6 py-5 flex flex-col gap-4">
+                <a href="index.html" class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors"
+                    onclick="closeMobile()">Home</a>
+                <a href="About.html" class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors"
+                    onclick="closeMobile()">About</a>
+                <a href="service.html" class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors"
+                    onclick="closeMobile()">Services</a>
+                <a href="Pricing.html" class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors"
+                    onclick="closeMobile()">Pricing</a>
+                <a href="contactus.html" class="text-slate-700 font-medium py-1 hover:text-sky-600 transition-colors"
+                    onclick="closeMobile()">Contact</a>
+
+                <a href="contactus.html"
+                    class="brand-gradient text-white text-center font-semibold px-5 py-3 rounded-full mt-2 hover:opacity-90 transition">Get
+                    Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════ -->
+    <section id="hero" class="hero-mesh min-h-[70vh] flex items-center relative overflow-hidden pt-24 pb-16">
+
+        <!-- Decorative Orbs -->
+        <div class="orb w-72 h-72 bg-sky-300 opacity-25 top-10 -left-20 animate-float"></div>
+        <div class="orb w-96 h-96 bg-indigo-400 opacity-20 bottom-10 -right-28 animate-float-delayed"></div>
+
+        <!-- Dot grid overlay -->
+        <div class="absolute inset-0 dot-grid opacity-60 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto reveal">
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 bg-white/80 border border-sky-200 rounded-full px-4 py-1.5 mb-7 shadow-sm">
+                    <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse-slow"></span>
+                    <span class="text-xs font-semibold text-sky-700 tracking-wide uppercase">Flexible Plans</span>
+                </div>
+
+                <h1
+                    class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-slate-900 mb-6">
+                    Our pricing is <span class="brand-gradient-text">transparent</span> &<br>Designed to Scale
+                </h1>
+
+                <p class="text-lg text-slate-500 leading-relaxed mb-10 max-w-2xl mx-auto font-light">
+                    At TeleConnect India, we understand that every business has unique communication needs. Instead of
+                    fixed pricing, we offer customized plans tailored to your messaging volume, service requirements,
+                    and business goals.
+                </p>
+
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#contact-form"
+                        class="btn-primary brand-gradient text-white font-semibold px-8 py-4 rounded-full text-base hover:opacity-90 transition-all duration-300 shadow-xl shadow-sky-200 flex items-center gap-2">
+                        Get Custom Pricing
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+
+                <p class="mt-8 text-slate-500 text-sm">
+                    Our experts will help you choose the most efficient and cost-effective solution for your business.
+                </p>
+            </div>
+        </div>
+
+        <!-- Wave divider -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+                class="w-full h-12 sm:h-16 lg:h-20">
+                <path d="M0 40 Q360 80 720 40 Q1080 0 1440 40 L1440 80 L0 80 Z" fill="white" />
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+     HOW PRICING WORKS
+════════════════════════════════════════════ -->
+    <section id="how-it-works" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16 reveal">
+                <div
+                    class="inline-flex items-center gap-2 bg-sky-50 border border-sky-100 rounded-full px-4 py-1.5 mb-5">
+                    <span class="text-xs font-semibold text-sky-600 tracking-wide uppercase">Flexible Model</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4">
+                    How Our Pricing<br><span class="brand-gradient-text">Works</span>
+                </h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto font-light">
+                    Our pricing is designed to provide maximum flexibility and value for businesses of all sizes.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="pricing-card bg-white rounded-2xl p-7 shadow-md reveal">
+                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Volume Based</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Pricing adjusts based on your message volume and
+                        campaign size to ensure cost efficiency.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="pricing-card bg-white rounded-2xl p-7 shadow-md reveal" style="transition-delay:0.05s">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Service Type</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Whether Promotional, Transactional, WhatsApp, or
+                        RCS - we have specific rates for each channel.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="pricing-card bg-white rounded-2xl p-7 shadow-md reveal" style="transition-delay:0.10s">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Voice Usage</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Flexible pricing for voice communication usage
+                        tailored to your call volume requirements.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="pricing-card bg-white rounded-2xl p-7 shadow-md reveal" style="transition-delay:0.15s">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800 mb-2">API Integration</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Custom pricing for API integration requirements
+                        based on complexity and usage levels.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="pricing-card bg-white rounded-2xl p-7 shadow-md reveal col-span-1 md:col-span-2 lg:col-span-2"
+                    style="transition-delay:0.20s">
+                    <div class="flex flex-col lg:flex-row lg:items-center gap-5">
+                        <div class="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-lg text-slate-800 mb-2">Operator Routing & Channels
+                            </h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">Pricing varies based on operator routing
+                                and delivery channels, ensuring you get the most competitive rates for your specific
+                                communication needs and target regions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     WHY CHOOSE US
+════════════════════════════════════════════ -->
+    <section id="why" class="py-24 section-alt">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Left: Image/Illustration -->
+                <div class="reveal-left">
+                    <div class="relative">
+                        <div class="absolute inset-0 brand-gradient opacity-10 rounded-3xl blur-3xl"></div>
+                        <div class="relative bg-white rounded-3xl shadow-2xl p-10 border border-slate-100">
+                            <svg viewBox="0 0 400 300" class="w-full" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Decorative background shapes -->
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:0.2" />
+                                        <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:0.2" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="200" cy="150" r="120" fill="url(#grad1)" />
+                                <!-- Icon: Shield/Security -->
+                                <path
+                                    d="M200 80 L260 110 L260 160 C260 210 200 250 200 250 C200 250 140 210 140 160 L140 110 Z"
+                                    fill="none" stroke="#4f46e5" stroke-width="3" />
+                                <path d="M180 150 L195 165 L225 135" fill="none" stroke="#0ea5e9" stroke-width="4"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <!-- Decorative dots -->
+                                <circle cx="120" cy="120" r="6" fill="#0ea5e9" opacity="0.6" />
+                                <circle cx="280" cy="140" r="4" fill="#4f46e5" opacity="0.6" />
+                                <circle cx="150" cy="220" r="5" fill="#22c55e" opacity="0.6" />
+                                <circle cx="250" cy="230" r="3" fill="#f59e0b" opacity="0.6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Text -->
+                <div class="reveal-right">
+                    <div
+                        class="inline-flex items-center gap-2 bg-white border border-indigo-100 rounded-full px-4 py-1.5 mb-6 shadow-sm">
+                        <span class="text-xs font-semibold text-indigo-600 tracking-wide uppercase">Benefits</span>
+                    </div>
+                    <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                        Why Choose<br><span class="brand-gradient-text">TeleConnect India</span>
+                    </h2>
+                    <p class="text-slate-500 text-lg mb-10 font-light leading-relaxed">
+                        We help businesses communicate faster, smarter, and more efficiently with our enterprise-grade
+                        solutions.
+                    </p>
+
+                    <!-- Feature list -->
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 brand-gradient rounded-xl flex items-center justify-center shadow-md">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-800 mb-0.5">Scalable Communication Platform</h4>
+                                <p class="text-slate-500 text-sm">Grow without limits with infrastructure that scales
+                                    automatically with your needs.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 brand-gradient rounded-xl flex items-center justify-center shadow-md">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-800 mb-0.5">Reliable Message Delivery Infrastructure
+                                </h4>
+                                <p class="text-slate-500 text-sm">99.9% uptime guarantee with redundant routing for
+                                    critical business communications.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 brand-gradient rounded-xl flex items-center justify-center shadow-md">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-800 mb-0.5">Multi-Channel Communication Solutions
+                                </h4>
+                                <p class="text-slate-500 text-sm">SMS, WhatsApp, Voice, and RCS unified in one powerful
+                                    platform.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 brand-gradient rounded-xl flex items-center justify-center shadow-md">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-800 mb-0.5">Enterprise-Grade Security</h4>
+                                <p class="text-slate-500 text-sm">Bank-level encryption and compliance for secure data
+                                    handling.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 brand-gradient rounded-xl flex items-center justify-center shadow-md">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-800 mb-0.5">Dedicated Technical Support</h4>
+                                <p class="text-slate-500 text-sm">Expert support team available to help you implement
+                                    and optimize your strategy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════════ -->
+    <section id="contact-form" class="py-24 cta-bg relative overflow-hidden">
+        <!-- Decorative circles -->
+        <div class="absolute -top-20 -right-20 w-72 h-72 bg-white opacity-5 rounded-full"></div>
+        <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-white opacity-5 rounded-full"></div>
+        <div class="absolute inset-0 dot-grid opacity-20 pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
+            <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+                Need the Best Price<br>For Your Business?
+            </h2>
+            <p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto font-light">
+                Every business communicates differently. Our experts will guide you in choosing the right solution and
+                the best pricing based on your requirements.
+            </p>
+
+            <!-- Quote highlight -->
+            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-6 mb-10 inline-block">
+                <p class="text-xl text-white font-display font-semibold italic">
+                    “Smart communication starts with the right strategy.”
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contactus.html"
+                    class="bg-white text-indigo-600 font-bold px-10 py-4 rounded-full text-base hover:bg-slate-50 transition-all duration-300 shadow-2xl flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    Talk to Our Experts
+                </a>
+                <a href="contactus.html"
+                    class="bg-white/15 text-white font-semibold px-10 py-4 rounded-full text-base border border-white/30 hover:bg-white/25 transition-all duration-300 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Request a Quote
+                </a>
+            </div>
+
+            <p class="mt-10 text-white/60 text-sm">Connect with our experts today.</p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+    <footer class="bg-[#0a0f1e] text-slate-400 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Footer top -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+
+                <!-- Brand column -->
+                <div class="lg:col-span-2">
+                    <a href="#" class="logo-mark inline-flex items-center gap-2 mb-5">
+                        <img src="assets/Logo-F-white.svg" alt="TeleConnect India Logo" class="h-12 w-auto">
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-5 max-w-xs">Built to Connect. Designed to Scale.
+                    </p>
+                </div>
+
+                <!-- Services links -->
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm mb-5 uppercase tracking-wide">Services</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Bulk SMS</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">WhatsApp Messaging</a>
+                        </li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">RCS Messaging</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Voice Solutions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company links -->
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm mb-5 uppercase tracking-wide">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="About.html" class="hover:text-sky-400 transition-colors">About</a></li>
+                        <li><a href="Pricing.html" class="hover:text-sky-400 transition-colors">Pricing</a></li>
+                        <li><a href="contactus.html" class="hover:text-sky-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal links -->
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm mb-5 uppercase tracking-wide">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition-colors">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-slate-500">&copy; 2026 TeleConnect India. All Rights Reserved.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+    <script>
+        // ── Navbar scroll effect ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ── Hamburger menu ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let menuOpen = false;
+
+        hamburger.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            const lines = hamburger.querySelectorAll('.ham-line');
+            if (menuOpen) {
+                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                lines[1].style.opacity = '0';
+                lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                lines[0].style.transform = '';
+                lines[1].style.opacity = '';
+                lines[2].style.transform = '';
+            }
+        });
+
+        function closeMobile() {
+            menuOpen = false;
+            mobileMenu.classList.remove('open');
+            const lines = hamburger.querySelectorAll('.ham-line');
+            lines[0].style.transform = '';
+            lines[1].style.opacity = '';
+            lines[2].style.transform = '';
+        }
+
+        // ── Scroll reveal (Intersection Observer) ──
+        const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+        revealEls.forEach(el => observer.observe(el));
+
+        // ── Close mobile menu on outside click ──
+        document.addEventListener('click', (e) => {
+            if (menuOpen && !hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMobile();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
